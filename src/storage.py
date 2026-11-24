@@ -5,7 +5,7 @@ from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 
 
-CONTAINER_NAME = "ihsg-data"
+CONTAINER_NAME = "scraping-data"
 BLOB_NAME = "ihsg_historical.csv"
 
 

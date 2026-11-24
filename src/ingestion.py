@@ -106,7 +106,7 @@ def main():
     print(f"File tersimpan: {OUTPUT_FILE}")
 
     # Beri tanda # di depan baris ini jika belum setting Azure
-    #upload_to_azure(OUTPUT_FILE)
+    upload_to_azure(OUTPUT_FILE)
 
 
 if __name__ == "__main__":
