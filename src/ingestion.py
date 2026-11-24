@@ -54,6 +54,19 @@ def fetch_data():
 
     result = pd.concat(all_data, ignore_index=True)
 
+    required_price_cols = ["Open", "High", "Low", "Close", "Adj Close"]
+    if "Adj Close" not in result.columns and "Close" in result.columns:
+        result["Adj Close"] = result["Close"]
+
+    for col in required_price_cols + ["Volume"]:
+        if col in result.columns:
+            result[col] = pd.to_numeric(result[col], errors="coerce")
+
+    result = result.dropna(subset=["Date"] + required_price_cols)
+
+    if "Volume" in result.columns:
+        result["Volume"] = result["Volume"].fillna(0)
+
     result["Date"] = pd.to_datetime(
         result["Date"]
     ).dt.strftime("%Y-%m-%d")
@@ -93,7 +106,7 @@ def main():
     print(f"File tersimpan: {OUTPUT_FILE}")
 
     # Beri tanda # di depan baris ini jika belum setting Azure
-    upload_to_azure(OUTPUT_FILE)
+    #upload_to_azure(OUTPUT_FILE)
 
 
 if __name__ == "__main__":
